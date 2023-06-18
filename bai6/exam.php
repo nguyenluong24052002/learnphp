@@ -33,8 +33,8 @@
              * Email: check đúng format
              */
 
-            $fullname = $email = $phone = $password = $address = '';
-            $fullnameErr = $emailErr = $phoneErr = $passwordErr = $addressErr = '';
+            $fullname = $email = $phone = $password = $address = $gender = '';
+            $fullnameErr = $emailErr = $phoneErr = $passwordErr = $addressErr = $genderErr = '';
             $content = '';
 
             if (isset($_POST['btnRegister'])) {
@@ -43,6 +43,12 @@
                 $phone = $_POST['phone'];
                 $address = $_POST['address'];
                 $password = $_POST['password'];
+                $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
+
+                
+
+
+
 
                 // Validate for fullname
                 if (empty($fullname)) {
@@ -70,17 +76,21 @@
 
 
                  // Validate for passwwrd
-
                  if (empty($password)) {
                     $passwordErr = 'Vui lòng nhập Mật khẩu';
                  };
 
                 
                  // Validate for address
-
                  if (empty($address)) {
                     $addressErr = 'Vui lòng nhập địa chỉ';
                  };
+
+
+                 // Validate for gender
+                 if (empty($gender)) {
+                    $genderErr = 'Vui lòng chọn giới tính';
+                }
 
                     // Xử lý sau khi nhập đúng và đủ
                     if ($fullname && $email && $phone && $address && $password) {
@@ -89,7 +99,13 @@
                         $content .= "<p>Email của bạn: ${email}";
                         $content .= "<p>Phone của bạn: ${phone}";
                         $content .= "<p>Address của bạn: ${address}";
-                        // $content .= "<p>Gendr của bạn: ${gender}";
+                        $content .= "<p>Giới Tính của bạn:";
+                                if ($gender == '1') {
+                                    $content .= "Nam";
+                                }else if ($gender == '2') {
+                                    $content .= "Nữ";
+                                }     
+
                     }
             }
         ?>
@@ -116,9 +132,11 @@
             <?= $addressErr ? "<div class='smg-error'>{$addressErr}</div>" : '' ?>
             <br/>
             <label>Gender</label>
-            Nam <input type="radio" name="gender" value="1" />
-            Nữ <input type="radio" name="gender" value="2" />
+            Nam <input type="radio" name="gender" value="1" <?= $gender == '1' ? 'checked' : '' ?> />
+            Nữ <input type="radio" name="gender" value="2" <?= $gender == '2' ? 'checked' : '' ?> />
+            <?= $genderErr ? "<div class='smg-error'>{$genderErr}</div>" : '' ?>
             <br/>
+
             <label>&nbsp;</label>
             <button name="btnRegister">Register</button>
         </form>
