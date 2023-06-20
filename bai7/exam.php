@@ -13,73 +13,91 @@
   <body>
   <?php
 
-$organization = $affiliation = $administrator = $zip31 = $zip32 = $address = $phone = $mailaddress = $password = '';
-$organizationArr = $affiliationArr = $administratorArr = $zip31Arr = $zip32Arr = $addressArr = $phoneArr = $mailaddressArr = $passwordArr = '';
+$organization = $affiliation = $administrator = $zipone = $ziptwo = $address = $phone = $mailaddress = $password = '';
+$organizationArr = $affiliationArr = $administratorArr = $ziponeArr = $ziptwoArr = $addressArr = $phoneArr = $mailaddressArr = $passwordArr = '';
 $content = '';
 
 if (isset($_POST['Submit'])) {
     $organization = $_POST['organization'];
     $affiliation = $_POST['affiliation'];
     $administrator = $_POST['administrator'];
-    $zip31 = $_POST['zip31'];
-    $zip32 = $_POST['zip32'];
+    $zipone = $_POST['zipone'];
+    $ziptwo = $_POST['ziptwo'];
     $address = $_POST['address'];
     $phone = isset($_POST['phone']) ? $_POST['phone'] : '';
     $mailaddress = $_POST['mailaddress'];
     $password = $_POST['password'];
 
 
-         // Validate for organization
+         // Validate for Tên tổ chức
     if (empty($organization)) {
         $organizationArr = '管理者名は必ず指定してください。';
     }
 
-     // Validate for affiliation
+     // Validate for Đơn vị liên kết
     if (empty($affiliation)) {
         $affiliationArr  = '所属は必ず指定してください。 ';
     }
 
-    // Validate for administrator
+    // Validate for tên quản trị viên
     if (empty($administrator)) {
         $administratorArr  = '管理者名は必ず指定してください。 ';
     }
 
+    // Validate for mã bưu điện
+    if (empty($zipone)) {
+        $ziponeArr  = '郵便番号は必ず指定してください。';
+    }else if (!is_numeric($_POST['zipone'])) {
+      $ziponeArr = '不正な形式';
+    }
 
-    if (empty($zip31)) {
-        $zip31Arr  = '郵便番号は必ず指定してください。';
+    if (empty($ziptwo)) {
+        $ziptwoArr  = '郵便番号は必ず指定してください。 ';
+    } else if (!is_numeric($_POST['ziptwo'])) {
+      $ziptwoArr = '不正な形式';
     }
 
 
-    if (empty($zip32)) {
-        $zip32Arr  = '郵便番号は必ず指定してください。 ';
-    }
-
-       // Validate for address
+       // Validate for Địa chỉ
     if (empty($address)) {
         $addressArr  = 'ご住所は必ず指定してください。';
     }
 
-       // Validate for phone
+       // Validate for 0866711741
     if (empty($phone)) {
         $phoneArr  = '電話番号は必ず指定してください。';
     }else if (strlen($_POST['phone']) > 10) {
-        $phoneArr = 'Phone không đc quá 10 lý tự';
+        $phoneArr = '電話番号は 10 文字以内です';
     }
 
-    // Validate for email
+    // Validate for địa chỉ thư điện tử
     if (empty($mailaddress)) {
-    $mailaddressArr = 'Vui lòng nhập email của bạn';
+    $mailaddressArr = 'メールアドレスは必ず指定してください。';
     } else if (!filter_var($_POST['mailaddress'], FILTER_VALIDATE_EMAIL)) {
-    $mailaddressArr = 'Email không đúng định dạng';
+    $mailaddressArr = '電子メールの無効化';
     }
 
-       // Validate for password
+       // Validate for mật khẩu
     if (empty($password)) {
         $passwordArr  = 'パスワードは必ず指定してください。';
     }
-}
 
 
+
+    // Kiểm tra và hiển thị thông tin
+    if ($organization && $affiliation && $administrator && $zipone && $ziptwo && $address && $phone && $mailaddress ) {
+      $content .= "<p>Tên tổ chức của bạn: ${organization}";  
+      $content .= "<p>Đơn vị liên kết của bạn: ${affiliation}";
+      $content .= "<p>Tên quản trị viên của bạn: ${administrator}";
+      $content .= "<p>Mã bưu điện của bạn: ${zipone}";
+      $content .= "<p>Mã bưu điện của bạn: ${ziptwo}";
+      $content .= "<p>Địa chỉ của bạn: ${address}";
+      $content .= "<p>Số điện thoại của bạn: ${phone}";  
+      $content .= "<p>Địa chỉ thư điện tử của bạn: ${mailaddress}";
+
+    }
+  }
+    
 
 ?>
     <header id="header">
@@ -114,9 +132,6 @@ if (isset($_POST['Submit'])) {
               </label>
               <label class="side_label">
                 <input type="radio" name="destination" value="school">学校
-              </label>
-              <label class="side_label">
-                <input type="radio" name="destination" value="home">自宅
               </label>
 ​
             </div>
@@ -156,12 +171,12 @@ if (isset($_POST['Submit'])) {
                 </div>
                 <div class="flex_wrap zip_frame">
                   <div>
-                    <input type="text" name="zip31" maxlength="3" placeholder="000"  class="<?= $zip31Arr ? 'input-error' : '' ?>" value="<?= $zip31 ?>">
-                    <?= $zip31Arr ? "<span class='smg-error'>{$zip31Arr}</span>" : '' ?>
+                    <input type="text" name="zipone" maxlength="3" placeholder="000"  class="<?= $ziponeArr ? 'input-error' : '' ?>" value="<?= $zipone ?>">
+                    <?= $ziponeArr ? "<span class='smg-error'>{$ziponeArr}</span>" : '' ?>
                   </div>
                   <div>
-                    <input type="text" name="zip32" maxlength="4" onKeyUp="AjaxZip3.zip2addr('zip31','zip32','pref','pref','addr1');" placeholder="0000" class="<?= $zip32Arr ? 'input-error' : '' ?>" value="<?= $zip32 ?>">
-                    <?= $zip32Arr ? "<span class='smg-error'>{$zip32Arr}</span>" : '' ?>
+                    <input type="text" name="ziptwo" maxlength="4" onKeyUp="AjaxZip3.zip2addr('zipone','ziptwo','pref','pref','addr1');" placeholder="0000" class="<?= $ziptwoArr ? 'input-error' : '' ?>" value="<?= $ziptwo ?>">
+                    <?= $ziptwoArr ? "<span class='smg-error'>{$ziptwoArr}</span>" : '' ?>
                   </div>
                 </div>
               </div>
@@ -301,6 +316,7 @@ if (isset($_POST['Submit'])) {
       </section>
       </form>
 ​
+<div class='result'><?= $content ?></div>
 ​
     </main>
 ​
