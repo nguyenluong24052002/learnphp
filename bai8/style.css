@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 16px;
+}
+
+.container {
+    width: 750px;
+    border: 1px solid #7e7a7a;
+    display: flex;
+    background-color: #CFE2F3;
+    margin: 30px auto;
+    position: relative;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.list-product {
+    width: 27% ;
+    border-right: 1px solid #7e7a7a;
+} 
+
+ul li {
+    font-size: 18px;
+    border-bottom: 1px solid #7e7a7a;
+    margin-bottom: 10px;
+    padding: 2px;
+}
+
+ul li a {
+    color: black;
+}
+
+.list-product ul h4 {
+    font-size: 20px;
+    border-bottom:1px solid #7e7a7a ;
+    margin: 20px 0px;
+}
+
+
+label {
+    float: left;
+    width: 130px;
+    margin: 10px;
+}
+
+input {
+    margin: 10px 0px;
+    padding: 5px;
+}
+
+button {
+    padding: 5px;
+    font-weight: bold;
+}
+
+h3 {
+    margin: 20px ;
+}
+
+.input-error {
+    border: 1px solid red;
+}
+
+.smg-error {
+    color: red;
+    text-indent: 100px;
+}
