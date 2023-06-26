@@ -86,7 +86,7 @@ if(!empty($keyword)) {
 
     <label for="gender1">Nam</label>
     <input type="radio" name="gender" id="gender1" value="1" <?= isset($_GET['gender']) && $_GET['gender'] == '1' ? 'checked' : '' ?>>
-    
+
     <label for="gender2">Nữ</label>
     <input type="radio" name="gender" id="gender2" value="2" <?= isset($_GET['gender']) && $_GET['gender'] == '2' ? 'checked' : '' ?>>
 
