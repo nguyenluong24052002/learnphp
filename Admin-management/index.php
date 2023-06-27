@@ -1,3 +1,8 @@
+<?php
+  session_start();
+  ob_start();
+?>
+
 <router-outlet></router-outlet>
 <html lang="en"><head>
   <meta charset="utf-8">
@@ -5,20 +10,12 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="icon" href="/docs/4.1/assets/img/favicons/favicon.ico">
-  <title>suntech.edu.vn</title>
+  <title>admin-management</title>
   <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/pricing/">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" >
 </head>
 <body>
-  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-    <h5 class="my-0 mr-md-auto font-weight-normal">Vue Mini Project</h5>
-    <nav class="my-2 my-md-0 mr-md-3">
-      <a class="p-2 text-dark" href="index.php?module=product">Product management</a>
-      <a class="p-2 text-dark" href="index.php?module=user">User management</a>
-    </nav>
-    <a class="btn btn-outline-primary" routerlink="cart">Administrator</a>
-  </div>
-
+  <?php ($_GET['module'] ?? null) != 'auth' ? require('./header_partions/header.php') : '' ?>
   <?php 
   require_once('./app/loadlayout.php');
   ?>
