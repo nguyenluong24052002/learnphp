@@ -30,17 +30,17 @@
                 }
                 break;    
 
-                case 'auth':
-                    if ($action == 'login') {
-                        require './auth/process_login.php';
-                        require './auth/login.php';
-                    }
-            
-                    if ($action == 'logout') {
-                        require './auth/logout.php';
-                    }
-            
-                    break;    
+            case 'auth':
+                if ($action == 'login') {
+                    require './auth/process_login.php';
+                    require './auth/login.php';
+                }
+        
+                if ($action == 'logout') {
+                    require './auth/logout.php';
+                }
+        
+                break;    
                 
     }
 
