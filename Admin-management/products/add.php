@@ -3,8 +3,8 @@
         $_SESSION['users'] = [];
     } 
 
-    $name = $email = $phone = $address = $gender = '';
-    $nameErr = $emailErr = $phoneErr = $addressErr = $genderErr = '';
+    $name = $email = $phone = $address = $gender = $file = '';
+    $nameErr = $emailErr = $phoneErr = $addressErr = $genderErr = $fileErr = '';
 
     if(isset($_POST['btn-submit'])) {
         $name = $_POST['name'];
@@ -12,6 +12,7 @@
         $phone = $_POST['phone'];
         $address = $_POST['address'];
         $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
+        $file = isset($_POST['file']);
 
         if (empty($name)) {
             $nameErr = 'Vui lòng nhập họ tên !';
@@ -33,7 +34,17 @@
             $genderErr = 'Vui lòng chọn giới tính!';
         }
 
-        if($name && $email && $phone && $address && $gender ) {
+        if (empty($file)) {
+            $fileErr = 'Vui lòng chọn ảnh đại diện!';
+        }
+
+        if (!empty($_FILES['file']['name'])) {
+            $fileName =  time() . "_" . $_FILES['file']['name'];
+            move_uploaded_file($_FILES['file']['tmp_name'], "./assets/images/" . $fileName);
+            $file = $fileName;
+        }
+ 
+        if($name && $email && $phone && $address && $gender) {
             $users =  [
                 'id'        => count($_SESSION['users']) + 1,
                 'name'      => $name,
@@ -41,6 +52,7 @@
                 'phone'     => $phone,
                 'address'   => $address,
                 'gender'    => $gender,
+                'file'      => $file,
             ];
             $_SESSION['users'][] = $users; // Tạo ra session lưu session vào vào mảng users
 
@@ -56,7 +68,7 @@
 </div>
 
 <div class="container">
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-3 col-form-label" >Name</label>
             <div class="col-sm-9">
@@ -64,6 +76,7 @@
                 <?= $nameErr ? '<div class="error" style="color:red">'.  $nameErr .'</div>' : '' ?>   
             </div>
         </div>
+
 
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-3 col-form-label">Email</label>
@@ -95,6 +108,14 @@
                 <input type="radio" name="gender" value="1" <?= $gender == '1' ? 'checked' : '' ?>/>Nam
                 <input type="radio" name="gender" value="2" <?= $gender == '2' ? 'checked' : '' ?> />Nữ
                 <?= $genderErr ? '<div class="error" style="color:red">'.  $genderErr .'</div>' : '' ?>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputPassword" class="col-sm-3 col-form-label" >Avatar</label>
+            <div class="col-sm-9">
+                <input type="file" class="form-control" name="file" />
+                <?= $fileErr ? '<div class="error" style="color:red">'.  $fileErr .'</div>' : '' ?>
             </div>
         </div>
 

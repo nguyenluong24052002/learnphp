@@ -9,6 +9,7 @@
         <thead>
           <tr>
             <th scope="col">ID</th>
+            <th scope="col">Avatar</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
@@ -22,6 +23,7 @@
           <?php foreach($_SESSION['users'] as $user ):?>
           <tr>
             <td><?= $user['id']?></td>
+            <td><img src="./assets/images/<?= $user['file']?>" alt="" width="100"></td>
             <td><?= $user['name']?></td>
             <td><?= $user['email']?></td>
             <td><?= $user['phone']?></td>
