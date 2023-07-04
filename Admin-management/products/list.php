@@ -1,38 +1,41 @@
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h2 class="display-4">Product Management</h2>
-    <p><a href="index.php?module=product&action=create">Add new</a></p>
+    <p><a href="index.php?module=product&action=add">Add new</a></p>
   </div>
 
   <div class="container">
-    <div class="card-deck mb-3 text-center">
+    <div class="card-deck mb-3 text-center"> 
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Product name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Handle</th>
+            <th scope="col">ID</th>
+            <th scope="col">Avatar</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Hành Động</th>
           </tr>
         </thead>
         <tbody>
+          <?php if (isset($_SESSION['users']) ?? null): ?>
+          <?php foreach($_SESSION['users'] as $user ):?>
           <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td><a href="index.php?module=product&action=create">Edit</a></td>
+            <td><?= $user['id']?></td>
+            <td><img src="./assets/images/<?= $user['file']?>" alt="" width="100"></td>
+            <td><?= $user['name']?></td>
+            <td><?= $user['email']?></td>
+            <td><?= $user['phone']?></td>
+            <td><?= $user['address']?></td>
+            <td><?= $user['gender'] == 1 ? 'Nam' : 'Nữ'?></td>
+            <td>
+                <a href="index.php?module=product&action=edit&id=<?= $user['id'] ?>">Edit</a>
+                <a onclick="return confirm('Bạn có thực sự muốn xóa không!')" href="index.php?module=product&action=delete&id=<?= $user['id'] ?>">Delete</a>
+            </td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          <?php endforeach;?>
+          <?php endif;?>
         </tbody>
       </table>
     </div>

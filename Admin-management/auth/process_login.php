@@ -1,7 +1,7 @@
 <?php
 
 $email = $password = '';
-$emailErr = $passwordErr = $generalMessage = '';
+$emailErr = $passwordErr = '';
 
 
 if (isset($_POST['btn-login'])) {
@@ -13,7 +13,7 @@ if (isset($_POST['btn-login'])) {
     }
 
     if(!$password) {
-        $passwordErr = 'vui lòng nhập mật khẩu';;
+        $passwordErr = 'vui lòng nhập mật khẩu';
     }
     
     if($email && $password) {
